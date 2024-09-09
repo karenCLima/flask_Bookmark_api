@@ -1,0 +1,16 @@
+Redirect to a real URL
+
+---
+
+tags:
+  - Bookmarks
+parameters:
+  - in: path
+    name: short_url
+    required: true
+
+responses:
+  302:
+    description: Redirects permanently
+  404:
+    description: Record Not Found

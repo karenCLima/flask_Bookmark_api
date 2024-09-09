@@ -1,0 +1,164 @@
+tags:
+  - Bookmarks
+paths:
+  /bookmarks/{id}:
+    put:
+      summary: "Update a bookmark"
+      description: "Updates a bookmark for the current user by its ID."
+      security:
+        - bearerAuth: []  # JWT authentication
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID of the bookmark to update"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: "Bookmark description"
+                url:
+                  type: string
+                  format: uri
+                  example: "https://example.com"
+      responses:
+        200:
+          description: "OK - Bookmark successfully updated"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  url:
+                    type: string
+                    example: "https://example.com"
+                  short_url:
+                    type: string
+                    example: "https://short.ly/abc123"
+                  visits:
+                    type: integer
+                    example: 42
+                  body:
+                    type: string
+                    example: "Bookmark description"
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: "2023-09-07T12:34:56"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: "2024-09-07T12:34:56"
+        400:
+          description: "Bad Request - Invalid URL"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Enter a valid url"
+        404:
+          description: "Not Found - Bookmark not found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Item not found"
+    patch:
+      summary: "Partial update a bookmark"
+      description: "Partially updates a bookmark for the current user by its ID."
+      security:
+        - bearerAuth: []  # JWT authentication
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID of the bookmark to partially update"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: "Bookmark description"
+                url:
+                  type: string
+                  format: uri
+                  example: "https://example.com"
+      responses:
+        200:
+          description: "OK - Bookmark successfully updated"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  url:
+                    type: string
+                    example: "https://example.com"
+                  short_url:
+                    type: string
+                    example: "https://localhost:5000/abD"
+                  visits:
+                    type: integer
+                    example: 42
+                  body:
+                    type: string
+                    example: "Bookmark description"
+                  created_at:
+                    type: string
+                    format: date-time
+                    example: "2023-09-07T12:34:56"
+                  updated_at:
+                    type: string
+                    format: date-time
+                    example: "2024-09-07T12:34:56"
+        400:
+          description: "Bad Request - Invalid URL"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Enter a valid url"
+        404:
+          description: "Not Found - Bookmark not found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Item not found"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

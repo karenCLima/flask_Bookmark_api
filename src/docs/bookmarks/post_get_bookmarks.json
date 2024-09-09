@@ -1,0 +1,92 @@
+{
+    "paths": {
+      "/bookmarks/": {
+        "post": {
+          "summary": "Create a new bookmark",
+          "tags": ["Bookmarks"],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT token required for authorization",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "The body should contain the bookmark details.",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "required": ["url", "body"],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "example": "https://example.com"
+                  },
+                  "body": {
+                    "type": "string",
+                    "example": "Bookmark description"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created - Bookmark successfully created"
+            },
+            "400": {
+              "description": "Bad Request - Invalid URL"
+            },
+            "409": {
+              "description": "Conflict - URL already exists"
+            }
+          }
+        },
+        "get": {
+          "summary": "Retrieve bookmarks",
+          "tags": ["Bookmarks"],
+          "parameters": [
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "JWT token required for authorization",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Page number for pagination",
+              "required": false,
+              "type": "integer",
+              "default": 1
+            },
+            {
+              "name": "per_page",
+              "in": "query",
+              "description": "Number of bookmarks per page",
+              "required": false,
+              "type": "integer",
+              "default": 5
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK - Successfully retrieved bookmarks"
+            },
+            "401": {
+              "description": "Unauthorized - Invalid or missing authentication token"
+            },
+            "500": {
+              "description": "Internal Server Error - Unexpected error occurred"
+            }
+          }
+        }
+      }
+    }
+  }
+  

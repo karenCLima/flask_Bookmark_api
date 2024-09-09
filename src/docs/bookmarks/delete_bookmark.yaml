@@ -1,0 +1,36 @@
+tags:
+  - Bookmarks
+paths:
+  /bookmarks/{id}:
+    delete:
+      summary: "Delete a bookmark"
+      description: "Deletes a bookmark for the current user by its ID."
+      security:
+        - bearerAuth: []  # Define o uso de JWT para autenticação
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: "ID of the bookmark to delete"
+      responses:
+        204:
+          description: "No Content - The bookmark was successfully deleted"
+        404:
+          description: "Not Found - Bookmark not found"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Item not found"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
